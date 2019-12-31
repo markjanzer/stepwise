@@ -1,2 +1,0 @@
-class Timeframe < ApplicationRecord
-end

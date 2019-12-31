@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2019_12_28_232420) do
 
   create_table "tasks", force: :cascade do |t|
     t.integer "passion_id"
-    t.integer "timeframe_id"
+    t.integer "time_frame_id"
     t.string "description"
     t.datetime "completed_at"
     t.boolean "is_current", default: false
