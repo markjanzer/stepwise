@@ -30,12 +30,13 @@ ActiveRecord::Schema.define(version: 2019_12_28_232420) do
     t.integer "passion_id"
     t.integer "time_frame_id"
     t.string "description"
+    t.datetime "due_date"
     t.datetime "completed_at"
-    t.boolean "is_current", default: false
   end
 
   create_table "time_frames", force: :cascade do |t|
     t.string "name"
+    t.integer "duration"
   end
 
   create_table "todos", force: :cascade do |t|
