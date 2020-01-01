@@ -1,7 +1,7 @@
 <section>
-	<h1>Stepwise</h1>
+	<h1>Two Weeks</h1>
 	<% Passion.all.each do |passion| %>
-		<a href="/passions/<%= passion.name %>"><%= passion.name %></a>
+		<h2><a href="/passions/<%= passion.id %>"><%= passion.name %></a></h2>
 		<ul>
 			<% Task.where(passion_id: passion, time_frame: TimeFrame::two_weeks).each do |task| %>
 				<li><%= task.description %></li>
