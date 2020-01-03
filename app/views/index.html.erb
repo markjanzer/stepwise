@@ -1,11 +1,4 @@
-<section>
-	<h1>Two Weeks</h1>
-	<% Passion.all.each do |passion| %>
-		<h2><a href="/passions/<%= passion.id %>"><%= passion.name %></a></h2>
-		<ul>
-			<% Task.where(passion_id: passion, time_frame: TimeFrame::two_weeks).each do |task| %>
-				<li><%= task.description %></li>
-			<% end %>
-		</ul>
-	<% end %>
-</section>
+<%= react_component("Index", {
+	passions: Passion.all,
+	tasks: Task.where(time_frame: TimeFrame::two_weeks),
+}) %>
