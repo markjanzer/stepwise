@@ -68,7 +68,8 @@ function Task(props) {
           onChange={(passion) => updateTask({ passion_id: passion.id })}
         />
       </div>
-      <div>{task.end_date}</div>
+      <div></div>
+      <div>{task.due_date}</div>
     </li>
   );
 }
