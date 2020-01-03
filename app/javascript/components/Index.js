@@ -1,5 +1,4 @@
 import React, { useState, Fragment } from "react"
-import { Combobox } from "evergreen-ui"
 import axios from "axios"
 // import PropTypes from "prop-types"
 
@@ -60,13 +59,13 @@ function Task(props) {
     <li key={task.id}>
       <div>{task.description}</div>
       <div>
-        <Combobox 
+        {/* <Combobox 
           openOnFocus
           initialSelectedItem={passion}
           items={passions}
           itemToString={passion => passion.name ? passion.name : ""}
           onChange={(passion) => updateTask({ passion_id: passion.id })}
-        />
+        /> */}
       </div>
       <div></div>
       <div>{task.due_date}</div>
