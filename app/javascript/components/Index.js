@@ -1,31 +1,34 @@
-import React, { useState, Fragment } from "react"
-import axios from "axios"
+import React, { useState, Fragment } from "react";
+import axios from "axios";
 // import PropTypes from "prop-types"
-
 
 function Index(props) {
   const [passions, setPassions] = useState(props.passions);
   const [tasks, setTasks] = useState(props.tasks);
 
   function updateTask(updatedTask) {
-    setTasks(tasks.map(task => {
-      if (task.id === updatedTask.id) {
-        return updatedTask;
-      } else {
-        return task;
-      }
-    }));
+    setTasks(
+      tasks.map(task => {
+        if (task.id === updatedTask.id) {
+          return updatedTask;
+        } else {
+          return task;
+        }
+      })
+    );
   }
 
   return (
     <section>
       <h1>Two Weeks</h1>
-      {passions.map(passion => Passion({ 
-        passion,
-        passions,
-        updateTask,
-        tasks: tasks.filter(task => task.passion_id === passion.id),
-      }))}
+      {passions.map(passion =>
+        Passion({
+          passion,
+          passions,
+          updateTask,
+          tasks: tasks.filter(task => task.passion_id === passion.id)
+        })
+      )}
     </section>
   );
 }
@@ -35,7 +38,9 @@ function Passion(props) {
 
   return (
     <React.Fragment key={passion.id}>
-      <h2><a href={`/passions/${passion.id}`}>{passion.name}</a></h2>
+      <h2>
+        <a href={`/passions/${passion.id}`}>{passion.name}</a>
+      </h2>
       <ul>
         {tasks.map(task => Task({ task, passion, passions, updateTask }))}
       </ul>
@@ -51,8 +56,7 @@ function Task(props) {
 
     props.updateTask(updatedTask);
 
-    axios.put(`/tasks/${task.id}`, data)
-      .catch(() => props.updateTask(task));
+    axios.put(`/tasks/${task.id}`, data).catch(() => props.updateTask(task));
   }
 
   return (
