@@ -6,6 +6,10 @@ import { debounce } from "lodash";
 function TaskList(props) {
   const [tasks, setTasks] = useState(props.tasks);
 
+  if (tasks.length > 5) {
+    console.log(tasks);
+  }
+
   function updateTask(updatedTask) {
     setTasks(
       tasks.map(task => {

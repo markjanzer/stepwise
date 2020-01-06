@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TaskList from "../blocks/TaskList";
 import { Button, Card, Heading, Pane, TextInput } from "evergreen-ui";
 import axios from "axios";
+import dayjs from "dayjs";
 
 function Show(props) {
   const { passion, timeFrames } = props;
@@ -12,18 +13,21 @@ function Show(props) {
     const newTask = {
       ...taskData,
       passion_id: passion.id,
-      id: null
+      completed_at: null
     };
 
-    setTasks(tasks.concat(newTask));
+    setTasks(tasks.concat({ ...newTask, id: null }));
 
     axios
-      .post("/tasks", taskData)
+      .post("/tasks", newTask)
       .then(response => {
+        const createdTask = response.data;
+        console.log("then", createdTask);
+        console.log("then", tasks);
         setTasks(
           tasks.map(task => {
             if (task.id === null) {
-              return response;
+              return createdTask;
             } else {
               return task;
             }
@@ -31,13 +35,17 @@ function Show(props) {
         );
       })
       .catch(() => {
-        setTasks(tasks.filter(task => task.id !== null));
+        console.log("catch");
+        setTasks(tasks.filter(task => task.id !== 0));
       });
   }
+
+  console.log("main", tasks);
 
   return (
     <Pane>
       {timeFrames.map(timeFrame => {
+        console.log("return", tasks);
         return (
           <React.Fragment key={timeFrame.id}>
             <Heading>{timeFrame.name}</Heading>
@@ -65,12 +73,16 @@ function NewTask(props) {
           value={description}
         />
         <Button
-          onClick={() =>
+          onClick={() => {
             props.createTask({
               description,
-              time_frame_id: timeFrame.id
-            })
-          }
+              time_frame_id: timeFrame.id,
+              due_date: dayjs()
+                .add(timeFrame.duration, "days")
+                .format("YYYY-MM-DD")
+            });
+            setEditability(false);
+          }}
         >
           Save
         </Button>
