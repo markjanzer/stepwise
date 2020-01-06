@@ -1,24 +1,5 @@
-<h1><%= @passion.name %></h1>
-<div><%= @passion.goals %></div>
-<div><%= @passion.vision %></div>
-
-<h2>2 Weeks</h2>
-<ul>
-	<% Task.where(passion: @passion, time_frame: TimeFrame::two_weeks).each do |task| %>
-		<li><%= task.description %></li>
-	<% end %>
-</ul>
-
-<h2>12 Weeks</h2>
-<ul>
-	<% Task.where(passion: @passion, time_frame: TimeFrame::twelve_weeks).each do |task| %>
-		<li><%= task.description %></li>
-	<% end %>
-</ul>
-
-<h2>72 Weeks</h2>
-<ul>
-	<% Task.where(passion: @passion, time_frame: TimeFrame::seventy_two_weeks).each do |task| %>
-		<li><%= task.description %></li>
-	<% end %>
-</ul>
+<%= react_component("passions/Show", {
+	passion: @passion,
+	tasks: Task.where(passion: @passion),
+	timeFrames: TimeFrame.all,
+}) %>
